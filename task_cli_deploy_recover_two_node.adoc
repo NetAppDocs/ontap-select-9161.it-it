@@ -1,0 +1,216 @@
+---
+sidebar: sidebar 
+permalink: task_cli_deploy_recover_two_node.html 
+keywords: administer, administering, cli, two node cluster, recover, recovering 
+summary: 'Se l"utilità ONTAP Select Deploy non funziona o non è disponibile per qualche motivo, non sarà più possibile amministrare i nodi e i cluster ONTAP Select . Inoltre, tutti i cluster a due nodi perdono la funzionalità HA perché il servizio di mediazione incluso in Deploy non è disponibile. Se si verifica un errore irreversibile, è necessario ripristinare l"istanza dell"utilità Deploy per ripristinare le funzionalità amministrative e HA.' 
+---
+= Ripristinare l'utilità ONTAP Select Deploy per un cluster a due nodi
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Se l'utilità ONTAP Select Deploy non funziona o non è disponibile per qualche motivo, non sarà più possibile amministrare i nodi e i cluster ONTAP Select . Inoltre, tutti i cluster a due nodi perdono la funzionalità HA perché il servizio di mediazione incluso in Deploy non è disponibile. Se si verifica un errore irreversibile, è necessario ripristinare l'istanza dell'utilità Deploy per ripristinare le funzionalità amministrative e HA.
+
+
+
+== Prima di iniziare
+
+Per garantire il successo, è necessario prepararsi prima di tentare di ripristinare un'istanza dell'utilità Deploy.
+
+.Competenze e informazioni richieste
+Dovresti avere familiarità con diverse procedure amministrative e disporre delle informazioni richieste.
+
+.Installazione della macchina virtuale Deploy
+È necessario essere in grado di installare una nuova istanza dell'utilità ONTAP Select Deploy nel proprio ambiente hypervisor.
+
+.Interfaccia della riga di comando ONTAP
+È necessario poter accedere ONTAP CLI del cluster ONTAP Select e utilizzare l'interfaccia shell.
+
+.Disponibilità del backup della configurazione dell'utilità di distribuzione
+È necessario verificare se si dispone di un backup dei dati di configurazione dell'istanza dell'utilità Deploy non riuscita che contiene il cluster a due nodi ONTAP Select . È possibile che il backup non contenga il cluster.
+
+.Ripristino di un backup della configurazione di distribuzione
+Dovresti essere in grado di ripristinare un backup dei dati di configurazione di Deploy, a seconda della procedura di ripristino utilizzata.
+
+.Indirizzo IP della macchina virtuale Deploy originale
+È necessario conoscere l'indirizzo IP della macchina virtuale dell'utilità di distribuzione originale che ha generato l'errore.
+
+.Licenza di capacità di archiviazione
+È necessario determinare se si utilizza la licenza Capacity Pools o Capacity Tiers. Se si utilizza la licenza Capacity Pools, è necessario reinstallare ciascuna licenza Capacity Pool dopo aver ripristinato o ripristinato l'istanza di Deploy.
+
+.Decidere quale procedura di recupero utilizzare
+È necessario decidere quale procedura utilizzare per il ripristino di un'istanza dell'utility ONTAP Select Deploy. La decisione dipende dalla disponibilità o meno di un backup dei dati di configurazione dell'utility Deploy originale non riuscita, contenente il cluster a due nodi ONTAP Select .
+
+[cols="35,65"]
+|===
+| Hai un backup Deploy contenente il cluster a due nodi? | Procedura di recupero da utilizzare 
+
+
+| SÌ | Ripristinare un'istanza dell'utilità Deploy utilizzando un backup della configurazione 
+
+
+| NO | Riconfigurare e ripristinare un'istanza dell'utilità Deploy 
+|===
+
+
+== Ripristinare un'istanza dell'utilità Deploy utilizzando un backup della configurazione
+
+Se si dispone di un backup dell'istanza dell'utility Deploy non riuscita contenente il cluster a due nodi, è possibile ripristinare i dati di configurazione nella nuova istanza della macchina virtuale Deploy. È quindi necessario completare il ripristino eseguendo un'ulteriore configurazione dei due nodi nel cluster ONTAP Select .
+
+.Prima di iniziare
+È necessario disporre di un backup dei dati di configurazione della macchina virtuale Deploy originale non riuscita che contiene il cluster a due nodi. È necessario essere in grado di accedere alla CLI ONTAP del cluster a due nodi e conoscere i nomi ONTAP dei due nodi.
+
+.Informazioni su questo compito
+Poiché il backup della configurazione ripristinato contiene il cluster a due nodi, le destinazioni iSCSI e le cassette postali del mediatore vengono ricreate nella nuova macchina virtuale dell'utilità di distribuzione.
+
+.Passi
+. Preparare una nuova istanza dell'utilità ONTAP Select Deploy:
++
+.. Installa una nuova macchina virtuale con l'utilità Deploy.
+.. Ripristinare la configurazione di distribuzione da un backup precedente sulla nuova macchina virtuale.
++
+Per informazioni più dettagliate sulle procedure di installazione e ripristino, fare riferimento alle attività correlate.
+
+
+
+. Sign in all'interfaccia della riga di comando ONTAP del cluster a due nodi ONTAP Select .
+. Accedi alla modalità privilegio avanzata:
++
+`set adv`
+
+. Se l'indirizzo IP della nuova macchina virtuale Deploy è diverso da quello della macchina virtuale Deploy originale, è necessario rimuovere le vecchie destinazioni iSCSI del mediatore e aggiungere nuove destinazioni:
++
+....
+storage iscsi-initiator remove-target -node * -target-type mailbox
+
+storage iscsi-initiator add-target -node <node1_name> -label mediator -target-type mailbox -target-portal <ip_address> -target-name <target>
+
+storage iscsi-initiator add-target -node <node2_name> -label mediator -target-type mailbox -target-portal <ip_address> -target-name <target>
+....
++
+IL  `<ip_address>` il parametro è l'indirizzo IP della nuova macchina virtuale Deploy.
+
++
+Questi comandi consentono ai nodi ONTAP Select di rilevare i dischi delle cassette postali sulla nuova macchina virtuale dell'utilità Deploy.
+
+. Determinare i nomi dei dischi mediatori:
++
+`disk show -container-type mediator`
+
+. Assegnare i dischi della casella di posta ai due nodi:
++
+....
+disk assign -disk <mediator-disk1-name> -owner <node1-name>
+disk assign -disk <mediator-disk2-name> -owner <node2-name>
+....
+. Verificare che il failover dell'archiviazione sia abilitato:
++
+`storage failover show`
+
+
+
+.Dopo aver finito
+Se si utilizza la licenza Capacity Pool, è necessario reinstallare ogni licenza Capacity Pool. Per ulteriori dettagli, consultare _Reinstallazione di una licenza Capacity Pool_.
+
+
+
+== Riconfigurare e ripristinare un'istanza dell'utilità Deploy
+
+Se non si dispone di un backup dell'istanza dell'utility Deploy non riuscita contenente il cluster a due nodi, è necessario configurare la destinazione iSCSI e la casella di posta del mediatore nella nuova macchina virtuale Deploy. È quindi necessario completare il ripristino eseguendo un'ulteriore configurazione dei due nodi nel cluster ONTAP Select .
+
+.Prima di iniziare
+È necessario conoscere il nome del target mediatore per la nuova istanza dell'utilità Deploy. È necessario poter accedere alla CLI ONTAP del cluster a due nodi e conoscere i nomi ONTAP dei due nodi.
+
+.Informazioni su questo compito
+Facoltativamente, è possibile ripristinare un backup della configurazione nella nuova macchina virtuale Deploy anche se non contiene il cluster a due nodi. Poiché il cluster a due nodi non viene ricreato con il ripristino, è necessario aggiungere manualmente la destinazione iSCSI e la casella di posta del mediatore alla nuova istanza dell'utility Deploy tramite la pagina web della documentazione online ONTAP Select nella pagina Deploy. È necessario essere in grado di accedere al cluster a due nodi e conoscere i nomi ONTAP dei due nodi.
+
+
+NOTE: L'obiettivo della procedura di ripristino è ripristinare il cluster a due nodi a uno stato sano, in cui è possibile eseguire le normali operazioni di acquisizione e restituzione dell'HA.
+
+.Passi
+. Preparare una nuova istanza dell'utilità ONTAP Select Deploy:
++
+.. Installa una nuova macchina virtuale con l'utilità Deploy.
+.. Facoltativamente, ripristinare la configurazione di distribuzione da un backup precedente sulla nuova macchina virtuale.
++
+Se si ripristina un backup precedente, la nuova istanza di Deploy non conterrà il cluster a due nodi. Per informazioni più dettagliate sulle procedure di installazione e ripristino, consultare la sezione informativa correlata.
+
+
+
+. Sign in all'interfaccia della riga di comando ONTAP del cluster a due nodi ONTAP Select .
+. Accedi alla modalità privilegiata avanzata:
++
+`set adv`
+
+. Ottieni il nome della destinazione iSCSI del mediatore:
++
+`storage iscsi-initiator show -target-type mailbox`
+
+. Accedi alla pagina web della documentazione online nella nuova macchina virtuale dell'utilità Deploy e accedi utilizzando l'account amministratore:
++
+`\http://<ip_address>/api/ui`
+
++
+Devi utilizzare l'indirizzo IP della tua macchina virtuale Deploy.
+
+. Fare clic su *Mediatore* e poi su *GET /mediators*.
+. Fare clic su *Provalo!* per visualizzare un elenco dei mediatori gestiti da Deploy.
++
+Annotare l'ID dell'istanza del mediatore desiderata.
+
+. Fare clic su *Mediatore* e poi su *PUBBLICA*.
+. Fornire il valore per mediator_id.
+. Fare clic sul *Modello* accanto a  `iscsi_target` e completa il valore del nome.
++
+Utilizzare il nome di destinazione per il parametro iqn_name.
+
+. Fare clic su *Provalo!* per creare la destinazione iSCSI del mediatore.
++
+Se la richiesta ha esito positivo, riceverai il codice di stato HTTP 200.
+
+. Se l'indirizzo IP della nuova macchina virtuale Deploy è diverso da quello della macchina virtuale Deploy originale, è necessario utilizzare ONTAP CLI per rimuovere le vecchie destinazioni iSCSI del mediatore e aggiungere nuove destinazioni:
++
+....
+storage iscsi-initiator remove-target -node * -target-type mailbox
+
+storage iscsi-initiator add-target -node <node1_name> -label mediator -target-type mailbox -target-portal <ip_address> -target-name <target>
+
+storage iscsi-initiator add-target -node <node2_name> -label mediator-target-type mailbox -target-portal <ip_address> -target-name <target>
+....
++
+IL  `<ip_address>` il parametro è l'indirizzo IP della nuova macchina virtuale Deploy.
+
+
+
+Questi comandi consentono ai nodi ONTAP Select di rilevare i dischi delle cassette postali sulla nuova macchina virtuale dell'utilità Deploy.
+
+. Determinare i nomi dei dischi mediatori:
++
+`disk show -container-type mediator`
+
+. Assegnare i dischi della casella di posta ai due nodi:
++
+....
+disk assign -disk <mediator-disk1-name> -owner <node1-name>
+
+disk assign -disk <mediator-disk2-name> -owner <node2-name>
+....
+. Verificare che il failover dell'archiviazione sia abilitato:
++
+`storage failover show`
+
+
+
+.Dopo aver finito
+Se si utilizza la licenza Capacity Pool, è necessario reinstallare ogni licenza Capacity Pool. Per ulteriori dettagli, consultare Reinstallazione di una licenza Capacity Pool.
+
+.Informazioni correlate
+* link:task_install_deploy.html["Installa ONTAP Select Distribuisci"]
+* link:task_cli_migrate_deploy.html#restoring-the-deploy-configuration-data-to-the-new-virtual-machine["Ripristinare i dati di configurazione di distribuzione sulla nuova macchina virtuale"]
+* link:task_adm_licenses.html#reinstalling-a-capacity-pool-license["Reinstallare una licenza Capacity Pool"]
+

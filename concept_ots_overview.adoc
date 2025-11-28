@@ -127,6 +127,7 @@ La modifica delle proprietà delle porte ONTAP , tra cui velocità, duplex e con
 * Processori di servizi
 * Migrazione SVM
 * SnapLock Compliance
+* Sincronizzazione attiva SnapMirror
 * VMware HCX
 
 

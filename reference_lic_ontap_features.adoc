@@ -29,6 +29,9 @@ Le seguenti funzionalità ONTAP sono supportate da ONTAP Select e concesse in li
 * CIFS
 * Deduplicazione e compressione
 * FlexCache
++
+Esistono delle limitazioni al supporto per la scrittura inversa di FlexCache con ONTAP Select. Per ulteriori informazioni, fare riferimento a link:https://docs.netapp.com/us-en/ontap-select/concept_ots_overview.html#flexcache-write-back-with-ontap-select["FlexCache write-back con ONTAP Select"^].
+
 * FlexClone
 * iSCSI
 * NDMP

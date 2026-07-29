@@ -18,6 +18,7 @@ summary: 'È possibile aggiornare sul posto una macchina virtuale dell"utilità 
 
 
 
+[[before-you-begin]]
 == Prima di iniziare
 
 Assicurarsi che Deploy non venga utilizzato per eseguire altre attività durante l'aggiornamento. È necessario consultare le note di rilascio correnti per informazioni e restrizioni sull'aggiornamento dell'utilità Deploy.
@@ -27,6 +28,7 @@ NOTE: Se è installata una versione precedente dell'utilità di amministrazione 
 
 
 
+[[download-the-upgrade-package]]
 == Scarica il pacchetto di aggiornamento
 
 Per avviare il processo di aggiornamento, è necessario scaricare il file di aggiornamento della macchina virtuale Deploy appropriato dal NetApp Support Site. Il pacchetto di aggiornamento è formattato come un singolo file compresso.
@@ -41,6 +43,7 @@ Per avviare il processo di aggiornamento, è necessario scaricare il file di agg
 
 
 
+[[upload-the-package-to-the-deploy-virtual-machine]]
 == Carica il pacchetto sulla macchina virtuale Deploy
 
 Dopo aver acquisito il pacchetto di upgrade, è necessario caricare il file sulla macchina virtuale Deploy.
@@ -67,6 +70,7 @@ Il file di aggiornamento è archiviato nella directory home dell'utente amminist
 
 
 
+[[apply-the-upgrade-package]]
 == Applica il pacchetto di aggiornamento
 
 Dopo che il file di aggiornamento è stato caricato sulla macchina virtuale Deploy, è possibile applicare l'aggiornamento.

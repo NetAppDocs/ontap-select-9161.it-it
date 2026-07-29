@@ -18,6 +18,7 @@ summary: È possibile acquistare una licenza ONTAP Select Capacity Tier o Capaci
 
 
 
+[[what-a-platform-license-offering-provides]]
 == Cosa offre un'offerta di licenza di piattaforma
 
 Un'offerta di licenza specifica definisce e limita le capacità dell'host hypervisor in due aree:
@@ -30,12 +31,14 @@ Le licenze sono organizzate in ordine crescente di capacità, da Standard a Prem
 
 
 
+[[platform-license-offerings]]
 == Offerte di licenze di piattaforma
 
 Sono disponibili tre offerte di licenze di piattaforma.
 
 
 
+[[standard]]
 === Standard
 
 L'offerta standard fornisce le seguenti funzionalità:
@@ -48,6 +51,7 @@ L'offerta standard fornisce le seguenti funzionalità:
 
 
 
+[[premium]]
 === Premio
 
 L'offerta premium offre le seguenti funzionalità:
@@ -61,6 +65,7 @@ L'offerta premium offre le seguenti funzionalità:
 
 
 
+[[premium-xl]]
 === Premium XL
 
 L'offerta premium XL offre le seguenti funzionalità:
@@ -77,6 +82,7 @@ NOTE: L'utilizzo di unità di tipo large instance o NVMe in una configurazione S
 
 
 
+[[compare-hardware-support-for-platform-license-offerings]]
 == Confronta il supporto hardware per le offerte di licenze di piattaforma
 
 Le licenze standard, premium e premium XL supportano un'ampia gamma di hardware e software. Per informazioni aggiornate sulle versioni hardware e software, consultare link:https://mysupport.netapp.com/matrix/["Strumento di matrice di interoperabilità"^] .

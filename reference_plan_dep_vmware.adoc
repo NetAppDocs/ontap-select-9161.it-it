@@ -21,6 +21,7 @@ CAUTION: Non modificare direttamente la configurazione di una macchina virtuale 
 
 
 
+[[hypervisor-independent]]
 == Indipendente dall'hypervisor
 
 Sia ONTAP Select che l'utilità di amministrazione ONTAP Select Deploy sono indipendenti dall'hypervisor.
@@ -64,6 +65,7 @@ Non è possibile aggiungere un nodo ONTAP Select direttamente a un cluster ONTAP
 
 
 
+[[vmware-hypervisor-environment]]
 == Ambiente hypervisor VMware
 
 Esistono diversi requisiti e restrizioni specifici dell'ambiente VMware che è opportuno prendere in considerazione prima di installare l'utilità ONTAP Select Deploy in un ambiente VMware.

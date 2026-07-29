@@ -18,6 +18,7 @@ Se l'utilità ONTAP Select Deploy non funziona o non è disponibile per qualche 
 
 
 
+[[before-you-begin]]
 == Prima di iniziare
 
 Per garantire il successo, è necessario prepararsi prima di tentare di ripristinare un'istanza dell'utilità Deploy.
@@ -58,6 +59,7 @@ Dovresti essere in grado di ripristinare un backup dei dati di configurazione di
 |===
 
 
+[[restore-a-deploy-utility-instance-using-a-configuration-backup]]
 == Ripristinare un'istanza dell'utilità Deploy utilizzando un backup della configurazione
 
 Se si dispone di un backup dell'istanza dell'utility Deploy non riuscita contenente il cluster a due nodi, è possibile ripristinare i dati di configurazione nella nuova istanza della macchina virtuale Deploy. È quindi necessario completare il ripristino eseguendo un'ulteriore configurazione dei due nodi nel cluster ONTAP Select .
@@ -119,6 +121,7 @@ Se si utilizza la licenza Capacity Pool, è necessario reinstallare ogni licenza
 
 
 
+[[reconfigure-and-recover-a-deploy-utility-instance]]
 == Riconfigurare e ripristinare un'istanza dell'utilità Deploy
 
 Se non si dispone di un backup dell'istanza dell'utility Deploy non riuscita contenente il cluster a due nodi, è necessario configurare la destinazione iSCSI e la casella di posta del mediatore nella nuova macchina virtuale Deploy. È quindi necessario completare il ripristino eseguendo un'ulteriore configurazione dei due nodi nel cluster ONTAP Select .

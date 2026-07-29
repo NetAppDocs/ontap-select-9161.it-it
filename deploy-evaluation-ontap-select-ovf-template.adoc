@@ -19,13 +19,13 @@ summary: 'È possibile distribuire rapidamente un"istanza di valutazione di 90 g
 .Informazioni su questo compito
 * Non è necessario ottenere un numero di serie o una licenza per la capacità di archiviazione da NetApp.
 * È possibile allocare ai dati utente la stessa quantità di spazio di archiviazione di una licenza acquistata.
-* Non è possibile aggiornare il nodo da una licenza di valutazione a una licenza acquistata.
 * È possibile utilizzare solo un account vCenter per distribuire il modello OVF. L'installazione diretta su un host ESXi non è attualmente supportata.
 * È necessario installare il modello OVF (contenuto in un file ova) utilizzando il client autonomo vSphere o il client Web vSphere (l'unica opzione per ESXi 6.5 e versioni successive). Non è necessario utilizzare l'utility di amministrazione ONTAP Select Deploy.
 
 
 
 
+[[prepare-the-ontap-select-cluster-host]]
 == Preparare l'host del cluster ONTAP Select
 
 Utilizzare i seguenti requisiti per preparare l'host ESXi in cui verrà distribuito il cluster ONTAP Select . La descrizione della piattaforma si basa sulla configurazione di tipo istanza standard o piccola con storage locale collegato direttamente (DAS) formattato utilizzando il file system VMFS-5 o VMFS-6.
@@ -36,6 +36,7 @@ Per ulteriori informazioni sulle opzioni di configurazione dell'host, vedere lin
 
 
 
+[[deploy-a-single-node-ontap-select-cluster-using-an-ovf-template]]
 == Distribuisci un cluster ONTAP Select a nodo singolo utilizzando un modello OVF
 
 Completare i seguenti passaggi su un server host ESXi a 64 bit supportato.

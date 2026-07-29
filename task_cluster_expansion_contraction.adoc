@@ -35,6 +35,7 @@ Per modificare il numero di nodi in un cluster in una dimensione non supportata 
 
 
 
+[[hardware-and-storage-considerations]]
 == Considerazioni su hardware e storage
 
 Le funzionalità di espansione e contrazione del cluster sono limitate nei seguenti modi:
@@ -53,6 +54,7 @@ Le funzionalità di espansione e contrazione del cluster sono limitate nei segue
 
 
 
+[[expand-the-cluster]]
 == Espandi il cluster
 
 È possibile aumentare le dimensioni di un cluster esistente da sei a otto nodi con la funzionalità di espansione del cluster.
@@ -100,6 +102,7 @@ Dopo aver espanso il cluster, è necessario eseguire il backup dei dati di confi
 
 
 
+[[contract-the-cluster]]
 == Contrarre il cluster
 
 È possibile ridurre le dimensioni di un cluster esistente da otto nodi a sei nodi con la funzionalità di contrazione del cluster.

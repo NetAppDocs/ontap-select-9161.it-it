@@ -30,12 +30,12 @@ Prima di creare un cluster ONTAP Select su un hypervisor, è necessario comprend
 ====
 .RAID hardware
 --
-Se si utilizza un controller RAID hardware locale, è necessario creare almeno un datastore (ESX) o uno link:reference_chk_host_prep.html#create-storage-pool["pool di archiviazione (KVM)"] in ogni nodo per i dati di sistema, nonché per gli aggregati radice e dati. È necessario collegare lo storage pool durante la configurazione del nodo ONTAP Select .
+Se usi un controller RAID hardware locale, devi creare almeno un datastore (ESX) o un link:kvm-host-configuration-and-preparation-checklist.html#create-storage-pool["pool di archiviazione (KVM)"] su ciascun nodo sia per i dati di sistema che per gli aggregati root e dati. Devi collegare il pool di storage come parte della configurazione del nodo ONTAP Select.
 
 --
 .RAID software
 --
-Se si utilizza il RAID software, è necessario creare almeno un datastore (ESX) o uno link:reference_chk_host_prep.html#create-storage-pool["pool di archiviazione (KVM)"] per i dati di sistema e assicurarsi che le unità SSD siano disponibili per la radice e gli aggregati di dati. È necessario collegare il pool di archiviazione e i dischi durante la configurazione del nodo ONTAP Select .
+Se usi il software RAID, devi creare almeno un datastore (ESX) o un link:kvm-host-configuration-and-preparation-checklist.html#create-storage-pool["pool di archiviazione (KVM)"] per i dati di sistema e assicurarti che le unità SSD siano disponibili per la root e gli aggregati di dati. Devi collegare il pool di storage e i dischi durante la configurazione del nodo ONTAP Select.
 
 --
 ====
